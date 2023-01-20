@@ -1,14 +1,13 @@
-import countriesData from './countries.json';
-import './App.css';
-import Navbar from './components/Navbar';
-import CountriesList from './components/CountriesList';
-import CountryDetails from './components/CountryDetails';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from './components/Navbar';
+import Homepage from './pages/Homepage';
+
+import './App.css';
 
 function App() {
-  const [countries, setCountries] = useState(countriesData);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     axios
@@ -20,13 +19,11 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<CountriesList countries={countries} />} />
-        <Route
-          path="/:alpha3Code"
-          element={<CountryDetails countries={countries} />}
-        />
+        <Route path="/" element={<Homepage countries={countries} />} />
+        <Route path="/:id" element={<Homepage countries={countries} />} />
       </Routes>
     </div>
   );
 }
+
 export default App;
